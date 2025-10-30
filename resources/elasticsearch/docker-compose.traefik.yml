@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   dev-elasticsearch:
     labels:
@@ -8,5 +7,5 @@ services:
       traefik.http.services.dev-elasticsearch.loadbalancer.server.port: "9200"
     networks:
       - dev-net-trfk
-    depends_on: 
+    depends_on:
       - dev-traefik

@@ -1,33 +1,33 @@
 # dev-services
-This project contains a set of **"recipes"** to run a few services inside 
-docker instead of having them installed on your system. These are mainly used for 
+This project contains a set of **"recipes"** to run a few services inside
+docker instead of having them installed on your system. These are mainly used for
 development but **docker-compose files** can be used as a starting point for
 other scenarios as well.
 
 #### Note
-This repository was tested on **Linux** more specifically on Ubuntu based 
-distributions like: **Ubuntu**, **Linux Mint** and other Ubuntu official 
+This repository was tested on **Linux** more specifically on Ubuntu based
+distributions like: **Ubuntu**, **Linux Mint** and other Ubuntu official
 flavours. Using this in WSL for Windows with a Ubuntu distribution might work.
 
 ### Prerequisites
 In order to run this project you need the following:
  - [docker](https://www.docker.com/community-edition#/download)
  - [docker-compose](https://docs.docker.com/compose/install/)
- - [Linux Mint](https://www.linuxmint.com/) or a compatible Ubuntu based distribution. 
- It might work with [Ubuntu in WSL2](https://ubuntu.com/blog/ubuntu-on-wsl-2-is-generally-available) 
+ - [Linux Mint](https://www.linuxmint.com/) or a compatible Ubuntu based distribution.
+ It might work with [Ubuntu in WSL2](https://ubuntu.com/blog/ubuntu-on-wsl-2-is-generally-available)
  as well.
 
 ## Intro
-This repository offers a handful of services described in their corresponding 
+This repository offers a handful of services described in their corresponding
 [**<SERVICE_NAME>/docker-compose.yml**](resources/) file.
 These services can be interacted with using a few CLI utilities built here:
  - **drun** - starts a service inside a docker container e.g. ```$ drun consul```
  will start the consul service. Bear in mind that these services use **traefik**
- so if traefik is not started then it will be. If you want to start the service 
+ so if traefik is not started then it will be. If you want to start the service
  using the host network, use the ```-h|--host``` flag
- - **erun** - allows us to execute commands in a started service e.g. 
- ```$ erun consul consul members``` will execute the *consul members* command 
- inside the started *consul* docker container 
+ - **erun** - allows us to execute commands in a started service e.g.
+ ```$ erun consul consul members``` will execute the *consul members* command
+ inside the started *consul* docker container
 
 **Why I chose to use a reverse proxy like traefik?**
 
@@ -38,8 +38,8 @@ If you wish to use this repository in your development process, all you need to 
  1. **Clone/Download** this repository.
  2. Run the [**install.sh**](install.sh) script and follow the prompts. ```$ ./install.sh```.
 
- During the installation process you will be asked to add the **bin/** folder to 
- your path in **.bashrc** file and if you want, you can also add to your **.bashrc** 
+ During the installation process you will be asked to add the **bin/** folder to
+ your path in **.bashrc** file and if you want, you can also add to your **.bashrc**
  file some common and helpful aliases to interact with this CLI utility. Also a docker
  network resource named **dev-net-trfk** will be created.
 
@@ -54,7 +54,7 @@ Service Name | Version | Credentials(*user:password*) | UI | Alias
 [postgres](https://www.postgresql.org/) | 14.1 | postgres:postgres | - | ```$ dpostgres```
 [mongo](https://www.mongodb.com/) | 5.0.5 | root:root | - | ```$ dmongo```
 [rabbit](https://www.rabbitmq.com/) | 3.9.11 | guest:guest | [http://rabbit.localhost](http://rabbit.localhost) | ```$ drabbit```
-[mysql](https://www.mysql.com/) | 8.0.27 | root:root | - | ```$ dmysql```
+[mysql](https://www.mysql.com/) | 9.5.0 | root:root | - | ```$ dmysql```
 [elasticsearch](https://www.elastic.co/products/elasticsearch/) | 7.16.1 | - | - | ```$ delastic```
 [kibana](https://www.elastic.co/products/kibana) | 7.16.1 | - | [http://kibana.localhost](http://kibana.localhost) | ```$ dkibana```
 [keycloak](https://www.keycloak.org/) | 15.1.0 | admin:admin | [http://keycloak.localhost](http://keycloak.localhost) | ```$ dkeycloak```
@@ -64,7 +64,7 @@ Service Name | Version | Credentials(*user:password*) | UI | Alias
 
 When these services are started, the docker container that gets started bears the
 name ***dev-[SERVICE_NAME]*** . I would like to believe that these containers have
-been configured so that they can be used in production if desired. I will try 
+been configured so that they can be used in production if desired. I will try
 to keep these versions up to date.
 
 #### Note
@@ -83,12 +83,12 @@ reason, start it using the default command ```$ drun consul```
 ---
 
 ## Available aliases
-Here are a bunch of the aliases defined in the [.drun_alias_helpers](bin/.drun_alias_helpers) 
+Here are a bunch of the aliases defined in the [.drun_alias_helpers](bin/.drun_alias_helpers)
 file and some of their uses.
 In order for these aliases to work we need their appropriate container started.
 
-### econsul 
-```bash 
+### econsul
+```bash
 # Alias equivalent
 $ erun consul consul
 
@@ -96,7 +96,7 @@ $ erun consul consul
 # Display the members of the current consul cluster.
 $ econsul members
 ```
-### epsql 
+### epsql
 ```bash
 # Full command to restore a database dump DB_BACKUP_FILE into a database DB_NAME
 $ cat DB_BACKUP_FILE | docker exec -e PGPASSWORD=postgres -i dev-postgres psql -h localhost -U postgres DB_NAME
@@ -107,7 +107,7 @@ $ PGPASSWORD=postgres erun postgres psql -h localhost -U postgres
 # To restore a database dump DB_BACKUP_FILE into a database DB_NAME
 $ cat DB_BACKUP_FILE | epsql DB_NAME
 ```
-### epgdump 
+### epgdump
 ```bash
 # Full command
 $ docker exec -i dev-postgres pg_dump -h localhost -U postgres DB_NAME > DB_BACKUP_FILE
@@ -118,7 +118,7 @@ $ epgdump -U postgres DB_NAME > DB_BACKUP_FILE
 # To backup a remote database DB_NAME into a DB_BACKUP_FILE
 $ epgdump -h REMOTE_HOST -U REMOTE_USER DB_NAME > DB_BACKUP_FILE
 ```
-### emongodump 
+### emongodump
 ```bash
 # Full command
 $ docker exec -i dev-mongo mongodump -u "root" -p "root" --authenticationDatabase admin --archive --gzip --db DB_NAME > DB_BACKUP_FILE.gz
@@ -129,7 +129,7 @@ $ erun mongo mongodump -u "root" -p "root" --authenticationDatabase admin --arch
 # Create a dump file for a given database
 $ emongodump DB_NAME > DB_BACKUP_FILE.gz
 ```
-### emongorestore 
+### emongorestore
 ```bash
 # Full command
 $ cat  DB_BACKUP_FILE.gz | docker exec -i dev-mongo mongorestore -u "root" -p "root" --authenticationDatabase admin --gzip --archive
@@ -142,7 +142,7 @@ $ cat  DB_BACKUP_FILE.gz | emongorestore
 # To restore in a different database
 $ cat  DB_BACKUP_FILE.gz | emongorestore "OLD_DB_NAME.*" --nsTo "NEW_DB_NAME.*"
 ```
-### emysqldump 
+### emysqldump
 ```bash
 # Full command
 $ docker exec -i dev-mysql mysqldump -uroot -proot DB_NAME > DB_BACKUP_FILE.sql
@@ -153,7 +153,7 @@ $ erun mysql mysqldump -uroot -proot
 # To create a database backup file
 $ emysqldump DB_NAME > DB_BACKUP_FILE.sql
 ```
-### emysqlrestore 
+### emysqlrestore
 ```bash
 # Full command
 cat DB_BACKUP_FILE.sql | docker exec -i dev-mysql mysql -uroot -proot -hlocalhost DB_NAME
@@ -166,7 +166,7 @@ $ cat DB_BACKUP_FILE.sql | emysqlrestore DB_NAME
 ```
 ## Elasticsearch backups
 Totally unrelated to this, well maybe a little because we do have an ***delastic***
-alias to start the elasticsearch service but here I will try to explain how to 
+alias to start the elasticsearch service but here I will try to explain how to
 backup an elastic search index.
 
 Sadly *(to my knowledge)* there is no easy/clean way to backup an elastic search
@@ -178,7 +178,7 @@ folder:
 - ***dev-elasticsearch/es-data*** - here we will store the elasticsearch database
 - ***dev-elasticsearch/es-backups*** - here we will store snapshots(backups) of our indices
 
-To view all available indices in your elastic search access 
+To view all available indices in your elastic search access
 [http://elasticsearch.localhost/_cat/indices?pretty](http://elasticsearch.localhost/_cat/indices?pretty)
 
 Now we can create snapshots for our indices:
@@ -209,8 +209,8 @@ $ curl -X PUT \
           \"include_global_state\": false
         }"
 ```
-Bellow we will handle the restoring of a snapshot that we got from another elastic 
-search server. Usually this is done by copying the BACKUP_FOLDER_NAME from that 
+Bellow we will handle the restoring of a snapshot that we got from another elastic
+search server. Usually this is done by copying the BACKUP_FOLDER_NAME from that
 server onto the new one and following the next steps.
 ```bash
 # Now if you followed the recommendations above, you should be in possession of a tar/zip file

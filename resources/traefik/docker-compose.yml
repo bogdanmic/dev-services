@@ -1,8 +1,7 @@
-version: "3.4"
 networks:
   dev-net-trfk:
-    external:
-      name: dev-net-trfk
+    name: dev-net-trfk
+    external: true
 services:
   dev-traefik:
     image: traefik:v2.5.5

@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   dev-traefik:
   # These configs need to be kept in sync with the ones in the main docker-compose.yml file

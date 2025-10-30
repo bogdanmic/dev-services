@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   dev-openzipkin:
     image: openzipkin/zipkin:2.23.14

@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   dev-keycloak:
     image: jboss/keycloak:15.1.0

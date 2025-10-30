@@ -1,7 +1,6 @@
-version: "3.4"
 services:
   dev-mysql:
-    image: mysql:8.0.27
+    image: mysql:9.5.0
     container_name: dev-mysql
     expose:
       - 3306

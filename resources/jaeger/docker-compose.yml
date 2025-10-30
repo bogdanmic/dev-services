@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   dev-jaeger:
     image: jaegertracing/all-in-one:1.29.0

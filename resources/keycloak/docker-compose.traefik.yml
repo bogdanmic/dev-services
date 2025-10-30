@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   dev-keycloak:
     labels:
@@ -10,5 +9,5 @@ services:
       DB_ADDR: dev-postgres
     networks:
       - dev-net-trfk
-    depends_on: 
+    depends_on:
       - dev-traefik

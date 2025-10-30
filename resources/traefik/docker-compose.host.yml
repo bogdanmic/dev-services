@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   dev-traefik:
     #This can not be run as network host
